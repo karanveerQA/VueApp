@@ -1,26 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <NavMenuComponent></NavMenuComponent>
+  <router-view></router-view>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import NavMenuComponent from "./components/NavMenuComponent.vue";
+import { mapGetters } from "vuex";
+import { router } from "./router/router";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    NavMenuComponent,
+  },
+  computed: {
+    ...mapGetters(["isLoggedIn"]),
+  },
+  created() {
+    console.log(this.isLoggedIn);
+    if (this.isLoggedIn) {
+      router.push("/home/images");
+    }
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
